@@ -28,10 +28,12 @@ PASSWORD="(password|admin|login|pwd|root|administrator|adminer|test|user|develop
 
 # get js and parse for secrets
 getsecrets(){
-  SECRETS=$($CURLREQUEST ${1} | grep -ioE -e $APITOKEN -e $S3ENDPOINT -e $S3TARGET -e $BASICAUTH -e $BEARERTOKEN -e $LOCALHOST -e $PRIVATEKEY -e $GITHUBTOKEN -e $JSONWEBTOKEN -e $PASSWORD)
-  echo "[+] ${1}"
-  echo "${SECRETS}"
-  echo
+  while read line; do
+    SECRETS=$($CURLREQUEST ${line} | grep -ioE -e $APITOKEN -e $S3ENDPOINT -e $S3TARGET -e $BASICAUTH -e $BEARERTOKEN -e $LOCALHOST -e $PRIVATEKEY -e $GITHUBTOKEN -e $JSONWEBTOKEN -e $PASSWORD)
+    echo "[+] ${line}"
+    echo "${SECRETS}"
+    echo
+  done < $1
 }
 
 # path fuzzing
