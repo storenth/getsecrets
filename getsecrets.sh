@@ -24,10 +24,11 @@ LOCALHOST="(localhost|127\.0\.0\.1|mysql|postgres).{0,32}"
 PRIVATEKEY="(-----BEGIN[[:blank:]]OPENSSH[[:blank:]]PRIVATE[[:blank:]]KEY-----|-----BEGIN[[:blank:]]RSA[[:blank:]]PRIVATE[[:blank:]]KEY-----|-----BEGIN[[:blank:]]DSA[[:blank:]]PRIVATE[[:blank:]]KEY-----|-----BEGIN[[:blank:]]EC[[:blank:]]PRIVATE[[:blank:]]KEY-----|-----BEGIN[[:blank:]]PGP[[:blank:]]PRIVATE[[:blank:]]KEY[[:blank:]]BLOCK-----).{0,32}"
 GITHUBTOKEN="(ghp_|ghu_|ghs_|ghr_|gho_)([[:alnum:]_-]){35,}"
 JSONWEBTOKEN="ey([[:alnum:]_=-])+[.]([[:alnum:]_=-])+[.]?([[:alnum:]_=.+/-])+"
+PASSWORD="(password|admin|login|pwd|root|administrator|adminer|test|user|developer|dev|adm|psswd)([\"[:blank:]])?[[:blank:]]?[:=][[:blank:]]?([\"[:blank:]])?([[:alnum:][:punct:]]){3,32}"
 
 # get js and parse for secrets
 getsecrets(){
-  SECRETS=$($CURLREQUEST ${1} | grep -ioE -e $APITOKEN -e $S3ENDPOINT -e $S3TARGET -e $BASICAUTH -e $BEARERTOKEN -e $LOCALHOST -e $PRIVATEKEY -e $GITHUBTOKEN -e $JSONWEBTOKEN)
+  SECRETS=$($CURLREQUEST ${1} | grep -ioE -e $APITOKEN -e $S3ENDPOINT -e $S3TARGET -e $BASICAUTH -e $BEARERTOKEN -e $LOCALHOST -e $PRIVATEKEY -e $GITHUBTOKEN -e $JSONWEBTOKEN -e $PASSWORD)
   echo "[+] ${1}"
   echo "${SECRETS}"
   echo
