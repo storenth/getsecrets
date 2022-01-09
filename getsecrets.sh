@@ -36,5 +36,4 @@ getsecrets(){
   done < $1
 }
 
-# path fuzzing
 getsecrets "$1"
